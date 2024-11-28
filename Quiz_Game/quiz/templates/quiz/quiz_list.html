@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Quizzes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #fff;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px;
+            background-color: #222;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5em;
+        }
+        a:hover {
+            color: #444;
+        }
+        .categories {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Available Quizzes</h1>
+<ul>
+  {% for quiz in quizzes %}
+    <li>
+        <a href="{% url 'quiz_detail' quiz.id %}">{{ quiz.title }}</a>
+        {% if quiz.categories.all %}
+            <div class="categories">
+                Categories: 
+                {% for category in quiz.categories.all %}
+                    <span>{{ category.name }}</span>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+</body>
+</html>
